@@ -144,7 +144,7 @@ def manejar_juego(pantalla, estado_juego_param):
             return False
 
         if evento.type == pygame.MOUSEBUTTONDOWN: ##se encarga de verificar el click del mouse
-            if evento.button == 1: #detectaria el click en el boton de mute
+            if evento.button == 1:
                 rect_mute_btn = dibujar_btn_silencio(pantalla, sonido_activado)
                 if rect_mute_btn.collidepoint(evento.pos):
                     alternar_sonido()
@@ -203,7 +203,7 @@ def manejar_juego(pantalla, estado_juego_param):
                 mouse_x, mouse_y = evento.pos #obtiene pos del mouse si tenes una carta arrastrando
                 posicion_carta_en_mano = (mouse_x - offset_x, mouse_y - offset_y) #actualiza la pos
 
-        elif evento.type == pygame.MOUSEBUTTONUP: #soltar arrastre seria
+        elif evento.type == pygame.MOUSEBUTTONUP:
             if carta_en_mano:
                 mouse_x, mouse_y = evento.pos #accede a la pos donde se solto la carta
                 soltada_correctamente = False 
@@ -218,11 +218,11 @@ def manejar_juego(pantalla, estado_juego_param):
                     else:
                         rect_destino = pygame.Rect(target_x_pila, inicio_y_pilas, ancho_carta, alto_carta) #si la pila esta vacia seria la primera de la pila
 
-                    if rect_destino.collidepoint(mouse_x, mouse_y):
+                    if rect_destino.collidepoint(mouse_x, mouse_y):#destino = pila?
                         if origen_arrastre[0] == "tablero" and origen_arrastre[1] == target_pila_idx:
                             for c in reversed(carta_en_mano):
                                 pilas_tablero[origen_arrastre[1]].insert(origen_arrastre[2], c)
-                            soltada_correctamente = True
+                            soltada_correctamente = True #si es el mismo lugar, vuelve a su origen
                         else:
                             carta_destino = pilas_tablero[target_pila_idx][-1] if pilas_tablero[target_pila_idx] else None
                             if movimiento_valido_tablero(carta_top_mover, carta_destino):
@@ -292,11 +292,11 @@ def manejar_ranking(pantalla, estado_juego_param): #maneja laspantallas del rank
     global sonido_activado
 
     pantalla.fill(NEGRO)
-    dibujar_texto_pantalla(pantalla, "RANKING DE SOLITARIO", 60, BLANCO, ANCHO // 2, 50) #deja un fondo negro y muestra el texto
+    dibujar_texto_pantalla(pantalla, "RANKING DE SOLITARIO", 60, BLANCO, ANCHO // 2, 50) #muestra el texto
     y_offset = 120 #posicion para las entradas del ranking
 
     if not ranking_cache:
-        dibujar_texto_pantalla(pantalla, "Todavias no hay partidas registradas", 30, BLANCO, ANCHO // 2, y_offset)
+        dibujar_texto_pantalla(pantalla, "Todavia no hay partidas registradas", 30, BLANCO, ANCHO // 2, y_offset)
     else: #abajo estarian los "titulos" con su respectivo usser y tiempo
         dibujar_texto_pantalla(pantalla, "Nombre", 30, BLANCO, ANCHO // 2 - 150, y_offset)
         dibujar_texto_pantalla(pantalla, "Tiempo", 30, BLANCO, ANCHO // 2 + 0, y_offset)

@@ -55,8 +55,8 @@ def movimiento_valido_tablero(carta_mover, carta_destino): #aca defini que carta
 
 def movimiento_valido_fundacion(carta_a_mover_tupla: tuple, pila_destino_list: list): #verifica si un movimiento a una fundacion es válido
 
-    valor_mover = carta_a_mover_tupla[0] #se fija en el valor a mover
-    palo_mover = carta_a_mover_tupla[1] #se fija en el palo de la carta a mover
+    valor_mover = carta_a_mover_tupla[0]#obtengo numero y palo
+    palo_mover = carta_a_mover_tupla[1] 
 
     if not pila_destino_list: #lo mismo q arriba
         return valor_mover == 1 #solo un 1 puede ir a una fundación vacía
